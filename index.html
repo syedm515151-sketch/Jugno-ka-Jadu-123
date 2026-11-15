@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ur">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090909"><meta name="description" content="Jugno Ka Jadu AI Studio">
+<title>Jugno Ka Jadu</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--gold:#e2bd67;--gold2:#a87c2d;--bg:#090909;--panel:#171717;--muted:#b7ad98}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#44331a 0,#15110b 28%,#080808 66%);color:#f8f2e6;font-family:system-ui,-apple-system,Arial,sans-serif;min-height:100vh}
+header{padding:25px 18px 19px;text-align:center;border-bottom:1px solid #5b4825;background:#080808aa}
+.logo{width:70px;height:70px;margin:auto;border:2px solid var(--gold);border-radius:23px;display:grid;place-items:center;color:var(--gold);font-size:37px;font-weight:900;box-shadow:0 0 28px #d6ad5240}
+h1{letter-spacing:2px;color:var(--gold);font-size:25px;margin:10px 0 2px}.sub{color:var(--muted);font-size:12px;letter-spacing:2px}
+main{max-width:760px;margin:auto;padding:18px}.welcome{font-size:14px;color:#e9d8b2;margin:2px 0 17px}
+h2{font-size:17px;color:var(--gold);margin:5px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.tile{background:linear-gradient(145deg,#24211a,#111);border:1px solid #66502a;border-radius:16px;padding:15px 13px;min-height:112px;text-align:left;color:#fff;cursor:pointer}
+.tile.active{border-color:#f0d17b;box-shadow:0 0 0 1px #d6ad5240,0 8px 25px #000}
+.tile span{font-size:25px}.tile b{display:block;margin-top:8px;font-size:14px}.tile small{color:var(--muted);font-size:11px}
+.panel{margin-top:16px;background:#151515;border:1px solid #574522;border-radius:17px;padding:15px}
+label{display:block;color:#ddc58e;font-size:12px;margin:12px 0 6px}
+textarea,input,select{width:100%;background:#090909;color:#fff;border:1px solid #65502a;border-radius:11px;padding:12px;font:inherit}
+textarea{min-height:104px;resize:vertical}
+button{background:linear-gradient(90deg,#a77b2c,#f0d17b);color:#130f07;border:0;border-radius:11px;padding:12px 15px;font-weight:800;cursor:pointer}
+.action{width:100%;margin-top:10px}.secondary{background:#292318;color:#f1d99f;border:1px solid #735a2c}
+.row{display:flex;gap:9px}.row button{flex:1}
+#result{white-space:pre-wrap;line-height:1.6;color:#f4dda0;margin-top:12px;overflow-wrap:anywhere}
+.note{font-size:11px;color:#a99f8c;line-height:1.55;margin:14px 2px}
+footer{text-align:center;padding:20px;color:#867957;font-size:11px}
+.hidden{display:none!important}
+@media(max-width:360px){.grid{gap:8px}.tile{padding:12px 10px}}
+</style></head>
+<body>
+<header><div class="logo">ج</div><h1>JUGNO KA JADU</h1><div class="sub">YOUR PERSONAL AI STUDIO</div></header>
+<main>
+<p class="welcome" dir="rtl">خوش آمدید! اپنا AI ٹول منتخب کریں۔</p>
+<h2>✨ AI Tools</h2>
+<div class="grid">
+<button class="tile active" data-mode="chat"><span>🤖</span><b>AI Chat</b><small>سوال و جواب اور آئیڈیاز</small></button>
+<button class="tile" data-mode="photo"><span>🎨</span><b>AI Photo</b><small>تصویر کے لیے پرامپٹ</small></button>
+<button class="tile" data-mode="video"><span>🎬</span><b>AI Video</b><small>ویڈیو سین اور پرامپٹ</small></button>
+<button class="tile" data-mode="voice"><span>🎙️</span><b>AI Voice</b><small>آواز سے بات اور سننا</small></button>
+<button class="tile" data-mode="writing" style="grid-column:1/-1"><span>✍️</span><b>AI Writing</b><small>پیغام، بائیو، کہانی اور کیپشن</small></button>
+</div>
+<section class="panel">
+<h2 id="toolTitle">🤖 AI Chat</h2>
+<div id="chatFields">
+<label for="prompt" dir="rtl">اپنا سوال یا آئیڈیا لکھیں</label>
+<textarea id="prompt" placeholder="مثلاً میرے لیے ایک اچھی اردو بائیو لکھیں..."></textarea>
+<div class="row"><button class="action" id="run">شروع کریں</button><button class="action secondary" id="mic">🎙️ بولیں</button></div>
+</div>
+<div id="voiceFields" class="hidden">
+<p class="note" dir="rtl">مائیک سے بولنے کے لیے براؤزر کی اجازت درکار ہوگی۔ یہ سہولت ہر موبائل/براؤزر میں دستیاب نہیں ہوتی۔</p>
+<button class="action" id="speak">🔊 نمونہ آواز سنیں</button>
+</div>
+<div id="result" aria-live="polite"></div>
+</section>
+<p class="note" dir="rtl">اہم: یہ قابلِ استعمال ابتدائی فرنٹ اینڈ ڈیمو ہے۔ حقیقی AI جوابات، AI تصویر/ویڈیو جنریشن اور مکمل وائس گفتگو کے لیے الگ AI API اور محفوظ سرور کنکشن شامل کرنا باقی ہے۔ API کی خفیہ key کبھی اس HTML فائل میں نہ ڈالیں۔</p>
+</main>
+<footer>JUGNO KA JADU · BLACK & GOLD · PREVIEW BUILD</footer>
+<script>
+let mode='chat';
+const titles={chat:'🤖 AI Chat',photo:'🎨 AI Photo Prompt',video:'🎬 AI Video Prompt',voice:'🎙️ AI Voice',writing:'✍️ AI Writing'};
+const prompts={chat:'اپنا سوال یا آئیڈیا لکھیں...',photo:'مثلاً سنہری روشنی میں شاہانہ پروفائل تصویر',video:'مثلاً 20 سیکنڈ کی ایکشن ویڈیو کا خیال',voice:'بولنے کے لیے مائیک دبائیں',writing:'مثلاً دو لائن کی پراسرار اردو بائیو'};
+const result=document.getElementById('result'),input=document.getElementById('prompt');
+function setMode(m){mode=m;document.querySelectorAll('.tile').forEach(x=>x.classList.toggle('active',x.dataset.mode===m));document.getElementById('toolTitle').textContent=titles[m];document.getElementById('chatFields').classList.toggle('hidden',m==='voice');document.getElementById('voiceFields').classList.toggle('hidden',m!=='voice');input.placeholder=prompts[m];result.textContent='';}
+document.querySelectorAll('.tile').forEach(x=>x.addEventListener('click',()=>setMode(x.dataset.mode)));
+function make(){let v=input.value.trim();if(!v){result.textContent='پہلے اپنا سوال یا آئیڈیا لکھیں۔';return}
+if(mode==='photo')result.textContent='آپ کا تصویر بنانے کا پرامپٹ:\\n'+v+', cinematic composition, premium black and gold color palette, detailed lighting, high quality.';
+else if(mode==='video')result.textContent='آپ کا ویڈیو پرامپٹ:\\n'+v+'. Create a cinematic sequence with clear scenes, smooth camera movement, dramatic lighting, and consistent characters.';
+else if(mode==='writing')result.textContent='آپ کی تحریر کا موضوع موصول ہوگیا:\\n'+v+'\\n\\nنوٹ: اصل AI تحریر بنانے کے لیے AI سروس منسلک کرنا باقی ہے۔';
+else result.textContent='آپ کا سوال موصول ہوگیا:\\n'+v+'\\n\\nاصل AI جواب کے لیے محفوظ AI سرور کنکشن درکار ہے۔';
+}
+document.getElementById('run').addEventListener('click',make);
+document.getElementById('mic').addEventListener('click',()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){result.textContent='آپ کے براؤزر میں آواز سے لکھنے کی سہولت دستیاب نہیں۔';return}let r=new SR();r.lang='ur-PK';r.onresult=e=>{input.value=e.results[0][0].transcript};r.onerror=()=>result.textContent='مائیک کی اجازت چیک کریں۔';r.start();});
+document.getElementById('speak').addEventListener('click',()=>{if(!('speechSynthesis'in window)){result.textContent='اس براؤزر میں آواز دستیاب نہیں۔';return}let u=new SpeechSynthesisUtterance('Welcome to Jugno Ka Jadu');speechSynthesis.speak(u);});
+if('serviceWorker'in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script></body></html>
